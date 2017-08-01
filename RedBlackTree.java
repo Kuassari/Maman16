@@ -525,23 +525,25 @@ public class RedBlackTree<T extends Comparable<T>>
         }
     }
 
-    // @param: key, any Comparable object
-    // @return: return's teh number of elements smaller than key
-    public int numSmaller(T key){
-
-        // Call findNumSmaller(root,key) which will return
-        // the number of nodes whose key is greater than key
+    /* The Algorithem isn't base on the course book, and there is file that contains the verity of it.
+     * @param: key, any Comparable object.
+     * @return: return's teh number of elements smaller than key.
+     */
+    public int numSmaller(T key)
+    {
+        // Call findNumSmaller(root,key) which will return the number of nodes whose key is greater than key
         return findNumSmaller(root,key);
+    }
 
-    }// end numSmaller(int key)
-
-    // @param: node, the root of the tree, the key who we must compare other
-    // node key's to.
-    // @return: the number of nodes smaller than key.
-    public int findNumSmaller(RedBlackNode<T> node, T key){
-
+    /* The Algorithem isn't base on the course book, and there is file that contains the verity of it.
+     * @param: node, the root of the tree, the key who we must compare other node key's to.
+     * @return: the number of nodes smaller than key.
+     */
+    public int findNumSmaller(RedBlackNode<T> node, T key)
+    {
         // Base Case: if node is nil, return 0
-        if (isNil(node)) return 0;
+        if (isNil(node)) 
+            return 0;
 
         // If key is less than node.key, look to the left as all
         // elements on the right of node are greater than key
@@ -551,36 +553,35 @@ public class RedBlackTree<T extends Comparable<T>>
         // If key is larger than node.key, all elements to the left of
         // node are smaller than key, add this to our total and look
         // to the right.
-        else
-            return 1+ node.numLeft + findNumSmaller(node.right,key);
-
+            else
+                return 1+ node.numLeft + findNumSmaller(node.right,key);
     }
 
-    /**
-     * Returns sorted list of keys greater than key.  Size of list
-     * will not exceed maxReturned
-     * @param key Key to search for
-     * @param maxReturned Maximum number of results to return
-     * @return List of keys greater than key.  List may not exceed maxReturned
+    /* The Algorithem isn't base on the course book, and there is file that contains the verity of it.
+     * Returns sorted list of keys smaller than key.  Size of list will not exceed minReturned
+     * @param: Key to search for.
+     * @param: minReturned minimum number of results to return.
+     * @return: List of keys smaller than key.  List may not exceed minReturned.
      */
-    public List<T> getGreaterThan(T key, Integer maxReturned) {
+    public List<T> getSmallerThan(T key, Integer maxReturned) {
         List<T> list = new ArrayList<T>();
-        getGreaterThan(root, key, list);
+        getSmallerThan(root, key, list);
         return list.subList(0, Math.min(maxReturned, list.size()));
     }
 
-
-    private void getGreaterThan(RedBlackNode<T> node, T key,
-                                List<T> list) {
-        if (isNil(node)) {
+    private void getSmallerThan(RedBlackNode<T> node, T key, List<T> list) 
+    {
+        if (isNil(node)) 
             return;
-        } else if (node.key.compareTo(key) > 0) {
-            getGreaterThan(node.left, key, list);
-            list.add(node.key);
-            getGreaterThan(node.right, key, list);
-        } else {
-            getGreaterThan(node.right, key, list);
-        }
+            
+            else if (node.key.compareTo(key) < 0) 
+            {
+                getSmallerThan(node.left, key, list);
+                list.add(node.key);
+                getSmallerThan(node.right, key, list);
+            }
+            
+            else 
+                getSmallerThan(node.right, key, list);
     }
-
 }
