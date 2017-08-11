@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.params=arg
+comment0.target=void\ main(java.lang.String[])
+comment1.params=array
+comment1.target=void\ fillArray(int[])
+comment1.text=\r\n\ The\ funtion\ puts\ random\ value\ in\ an\ array\r\n\ \r\n\ @param\:\ array,\ the\ array\ we\ want\ to\ fill\r\n
+comment2.params=array\ k
+comment2.target=void\ kSmallest(int[],\ int)
+comment2.text=\r\n\ The\ funtion\ get\ an\ array\ and\ a\ number\ k\ and\ print\ the\ smallest\ k\ numbers\ in\ the\ array\ sorted.\r\n\ \r\n\ @param\:\ array,\ filled\ with\ numbers.\r\n\ @param\:\ k,\ number.\r\n
+numComments=3

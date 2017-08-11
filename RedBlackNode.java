@@ -17,9 +17,6 @@ class RedBlackNode<T extends Comparable<T>>
     protected RedBlackNode<T> parent;       // The parent node.
     protected RedBlackNode<T> left;         // The left child.
     protected RedBlackNode<T> right;        // The right child.
-    
-    protected int numLeft;              // The number of elements to the left of each node.
-    protected int numRight;             // The number of elements to the right of each node.
 
     // Default Constructor.
     public RedBlackNode()
@@ -28,8 +25,6 @@ class RedBlackNode<T extends Comparable<T>>
         parent = null;
         left = null;
         right = null;
-        this.numLeft = 0;
-        this.numRight = 0;
     }
 
     /**

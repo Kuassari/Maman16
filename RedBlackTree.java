@@ -15,9 +15,8 @@ public class RedBlackTree<T extends Comparable<T>>
     private RedBlackNode<T> nil = new RedBlackNode<T>();
     private RedBlackNode<T> root = nil;
     
-    // The size of the tree
-    public static int k;
-    public int currSize;
+    public int k;                   // The maximum size of the tree.
+    public int currSize;            // The current size of the tree.
 
     // Default Constructor.
     public RedBlackTree(int k) 
@@ -39,18 +38,7 @@ public class RedBlackTree<T extends Comparable<T>>
     {
         return node == nil;
     }
-    
-    /**
-     * The function Return's the number of nodes including the root which the RedBlackTree rooted at root has.
-     *
-     * @return: Return's the size of the tree.
-     */
-    public int size()
-    {
-        return root.numLeft + root.numRight + 1;
-        //return currSize;
-    }
-    
+        
     /** 
      * The Algorithm based on the one in page 234 in the course book.
      * The function Performs a left Rotate around x.
@@ -118,7 +106,8 @@ public class RedBlackTree<T extends Comparable<T>>
      */
     public RedBlackNode<T> TreeMinimum(RedBlackNode<T> x)
     {
-        while (!isNil(x.left))               // While there is a smaller key, keep going left.
+        // While there is a smaller key, keep going left.
+        while (!isNil(x.left))
             x = x.left;
             
         return x;
@@ -133,7 +122,8 @@ public class RedBlackTree<T extends Comparable<T>>
      */
     public RedBlackNode<T> TreeMaximum(RedBlackNode<T> x)
     {
-        while (!isNil(x.right))               // While there is a smaller key, keep going left.
+        // While there is a smaller key, keep going left.
+        while (!isNil(x.right)) 
             x = x.right;
             
         return x;
@@ -154,15 +144,16 @@ public class RedBlackTree<T extends Comparable<T>>
 
         RedBlackNode<T> y = x.parent;
 
-        // While x is it's parent's right child...
+        // While x is it's parent's right child:
         while (!isNil(y) && x == y.right)
         {
             // Keep moving up in the tree.
             x = y;
             y = y.parent;
         }
-          
-        return y;               // Return successor.
+        
+        // Return successor.
+        return y;         
     }
            
     /**
@@ -170,24 +161,22 @@ public class RedBlackTree<T extends Comparable<T>>
      *
      * @param: the key you want to insert to the tree. 
      */
-    public void insert(T key) 
+    public void Insert(T key) 
     {        
         RedBlackNode<T> z = new RedBlackNode<T>(key);       // Create new node for the tree.       
         RedBlackNode<T> max = root;                         // Create new node for the maximum in the tree.
-        System.out.println("current size is: " + size());
         
-        // If the tree is full (size >= k).
-        if (size() == k || size() > k)
+        // If the tree is full (current size = k).
+        if (currSize == k)
         {
                 // Search the maximum and put it's value in max.
                 max = TreeMaximum(max);
-                System.out.println("max in tree is: " + max.key);
 
                 // If z is smaller then the maximum, we delete the maximum and proceed to insert z to the tree.
                 if (z.key.compareTo(max.key) < 0)
                 {
-                    remove(max);
-                    insert(z);
+                    Remove(max);
+                    Insert(z);
                 }
 
                 // Else, we don't insert z and end the program.
@@ -197,7 +186,10 @@ public class RedBlackTree<T extends Comparable<T>>
         
         // If the tree is not full yet, insert the node to the tree.
         else
-            insert(z);
+        {
+            Insert(z);
+            currSize++;
+        }
     }
     
     /**
@@ -206,7 +198,7 @@ public class RedBlackTree<T extends Comparable<T>>
      *
      * @param: z, the node to be inserted into the Tree rooted at root.
      */
-    private void insert(RedBlackNode<T> z) 
+    private void Insert(RedBlackNode<T> z) 
     {
             // Create a reference to root & initialize a node to nil.
             RedBlackNode<T> y = nil;
@@ -218,15 +210,11 @@ public class RedBlackTree<T extends Comparable<T>>
 
                 if (z.key.compareTo(x.key) < 0)     // If z.key is < than the current key, go left.
                 {
-                    currSize++;
-                    x.numLeft++;                    // Update x.numLeft as z is < than x.
                     x = x.left;
                 }
 
                 else                                // Else, if z.key >= x.key so go right.
-                {
-                    currSize++;
-                    x.numRight++;                   // Update x.numRight as z is => x.
+                {               
                     x = x.right;
                 }
             }
@@ -250,7 +238,7 @@ public class RedBlackTree<T extends Comparable<T>>
             z.color = RedBlackNode.RED;
 
             // Call insertFixup(z).
-            insertFixup(z);
+            InsertFixup(z);
     }
 
     /**
@@ -259,7 +247,7 @@ public class RedBlackTree<T extends Comparable<T>>
      *
      * @param: z, the node which was inserted and may have caused a violation of the RedBlackTree properties.
      */
-    private void insertFixup(RedBlackNode<T> z)
+    private void InsertFixup(RedBlackNode<T> z)
     {
         RedBlackNode<T> y = nil;
         
@@ -341,7 +329,7 @@ public class RedBlackTree<T extends Comparable<T>>
      * @param: z, the node we want to delete.
      * The function remove's z from the RedBlackTree rooted at root.
      */
-    private void remove(RedBlackNode<T> z)
+    private void Remove(RedBlackNode<T> z)
     {
         // Declare variables.
         RedBlackNode<T> x = nil;
@@ -382,10 +370,7 @@ public class RedBlackTree<T extends Comparable<T>>
              
         // If y's color is black, it is a violation of the RedBlackTree properties so call removeFixup().
         if (y.color == RedBlackNode.BLACK)
-            removeFixup(x);
-            
-        // Update the numLeft and numRight numbers which might need updating due to the deletion of z.key.
-        fixNodeData(x,y);
+            RemoveFixup(x);
     }
 
     /**
@@ -394,7 +379,7 @@ public class RedBlackTree<T extends Comparable<T>>
      *
      * @param: x, the child of the deleted node from remove(RedBlackNode v).
      */
-    private void removeFixup(RedBlackNode<T> x)
+    private void RemoveFixup(RedBlackNode<T> x)
     {
         RedBlackNode<T> w;
 
@@ -490,95 +475,7 @@ public class RedBlackTree<T extends Comparable<T>>
 
         // Set x to black to ensure there is no violation of RedBlack tree Properties.
         x.color = RedBlackNode.BLACK;
-    }
-
-    /**
-     * The Algorithm isn't base on the course book, and there is file that contains the verity of it.
-     * The function Update the numLeft and numRight values which might need updating due to the deletion of z.key in remove(RedBlackNode z).
-     *
-     * @param: y, the RedBlackNode which was actually deleted from the tree.
-     * @param: key, the value of the key that used to be in y.
-     */
-    private void fixNodeData(RedBlackNode<T> x, RedBlackNode<T> y)
-    {
-        // Initialize two variables which will help us traverse the tree.
-        RedBlackNode<T> current = nil;
-        RedBlackNode<T> track = nil;
-
-
-        // If x is nil, then we will start updating at y.parent.
-        // Set track to y, y.parent's child.
-        if (isNil(x))
-        {
-            current = y.parent;
-            track = y;
-        }
-
-        // If x is not nil, then we start updating at x.parent.
-        // Set track to x, x.parent's child.
-        else
-        {
-            current = x.parent;
-            track = x;
-        }
-
-        // While we haven't reached the root.
-        while (!isNil(current))
-        {
-            // If the node we deleted has a different key than The current node.
-            if (y.key != current.key) 
-            {
-                // If the node we deleted is greater than the current key - decrement current numRight.
-                if (y.key.compareTo(current.key) > 0)
-                {
-                    currSize--;
-                    current.numRight--;
-                }
-
-                // If the node we deleted is less than the current key - decrement current numLeft.
-                if (y.key.compareTo(current.key) < 0)
-                {
-                    currSize--;
-                    current.numLeft--;
-                }
-            }
-
-            // If the node we deleted has the same key as the current node we are checking.
-            else
-            {
-                // The cases where the current node has any nil Children and update appropriately.  
-                if (isNil(current.left))
-                {
-                    currSize--;
-                    current.numLeft--;
-                }
-                    
-                else if (isNil(current.right))
-                {
-                    currSize--;
-                    current.numRight--;
-                }
-
-                // The cases where the current node has two children and we must determine whether track is it's left
-                // Or right child and update appropriately.
-                else if (track == current.right)
-                {
-                    currSize--;
-                    current.numRight--;
-                }
-                    
-                else if (track == current.left)
-                {
-                    currSize--;
-                    current.numLeft--;
-                }
-            }
-
-            // Update track and current.
-            track = current;
-            current = current.parent;
-        }
-    }
+    }    
 
     /** 
      * This is function that overloads the actuall function.

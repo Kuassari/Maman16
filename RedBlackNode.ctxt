@@ -3,5 +3,5 @@ comment0.params=
 comment0.target=RedBlackNode()
 comment1.params=key
 comment1.target=RedBlackNode(java.lang.Comparable)
-comment1.text=\ Constructor\ which\ sets\ key\ to\ the\ argument.\r\n\ @param\:\ the\ key\ to\ insert\ to\ the\ node\r\n
+comment1.text=\r\n\ Constructor\ which\ sets\ key\ to\ the\ argument.\r\n\r\n\ @param\:\ the\ key\ to\ insert\ to\ the\ node\r\n
 numComments=2

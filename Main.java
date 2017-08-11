@@ -9,32 +9,22 @@ import java.util.Random;
  */
 public class Main
 {
-    static final int MIN = 0;      // The smallest number in each array
-    static final int MAX = 1023;   // The largest number in each array
-    
+    static final int MIN = 0;      // The smallest number in each array.
+    static final int MAX = 1023;   // The largest number in each array.    
 
     // The main program
     public static void main(String arg[])
-    {
-        int [] test = {5 ,798, 142, 183, 800, 293, 640, 172, 21, 1};
-        
-        for(int i = 0; i<test.length; i++)
-            System.out.print( test[i] + " ");
-
-        System.out.print("\n");
-        kSmallest(test, 4);
-    
-
-        /*// Set three arrays as described in the assignment.
+    {  
+        // Set three arrays as described in the assignment.
         int [] A = new int [200];
         int [] B = new int [400];
         int [] C = new int [800];
 
-        //  Fill the arrays with random numbers
+        // Fill the arrays with random numbers
         fillArray(A);
         fillArray(B);
         fillArray(C);
-
+          
         // Find smallest k numbers with k configured as described in the assignment.
         kSmallest(A, 10);
         kSmallest(A, 50);
@@ -46,7 +36,7 @@ public class Main
 
         kSmallest(C, 10);
         kSmallest(C, 50);
-        kSmallest(C, 100);*/
+        kSmallest(C, 100);
     }   
    
     /**
@@ -60,7 +50,7 @@ public class Main
         
         for (int i = 0; i< array.length; i++)
         {
-            // Random number in the range [MIN, MAX]
+            // Random number in the range [MIN, MAX].
             rand = MIN + (int)(Math.random() * ((MAX - MIN) + 1));
             array[i] = rand;
         }
@@ -75,56 +65,25 @@ public class Main
     public static void kSmallest(int [] array, int k)
     {
         // Set three points as described in the assignment.
-        //int n1 = (array.length) / 4;
-        //int n2 = (array.length) / 2;
-        //int n3 = (3 * array.length) / 4;
-        int n1 = 3;
-        int n2 = 5;
-        int n3 = 6;
-        
-        // Create red-black tree with the k in the input
-        RedBlackTree<Integer> rbt = new RedBlackTree<Integer>(k);
-        
-        // Create value that indicate the current index in the array
-        int i = 0;
-    
-        // While it's not the end of the array
-        for (i = 0; i<array.length; i++)
-        {
-            // If we got to a check point, print the tree
-            if (i == n1 || i == n2 || i == n3)
-            {
-                rbt.printkMin();
-                System.out.print("\n");
-            }
-
+        int n1 = (array.length) / 4;
+        int n2 = (array.length) / 2;
+        int n3 = (3 * array.length) / 4;
+           
+        // Create red-black tree with the k in the input.
+        RedBlackTree<Integer> rbt = new RedBlackTree<Integer>(k);        
+   
+        // For loop until we reach the end of the array.
+        for (int i = 0; i<array.length; i++)
+        {   
             // Insert the current value in the array to the tree and move i to the next index.
-            rbt.insert(array[i]);
-        }
-
-        rbt.printkMin();
-        /*for (int i = 0; i<array.length; i++)
-        {
-            // If we got to a check point, print the tree
+            rbt.Insert(array[i]);
+            
+            // If we got to a check point, print the tree.
             if (i == n1 || i == n2 || i == n3)
             {
                 rbt.printkMin();
                 System.out.print("\n");
-            }
-            if (i<k)
-            {
-                    rbt.insert(array[i]);
-            }
-            else
-            {
-                    RedBlackTree<Integer> max = TreeMaximum(rbt);
-                    if (array[i]<max.key)
-                    {
-                        rbt.remove();
-                        insert(array[i]);
-            
-                    }
-             }
-        }*/
+            }          
+        }
     }
 }
