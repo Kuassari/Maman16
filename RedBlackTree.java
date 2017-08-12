@@ -3,8 +3,8 @@ import java.util.List;
 
 /**
  * Class RedBlack Tree
- * The implement of all the functions are based on the algorithem in the book of the course
- * The only change is the use of generic type instead of int type
+ * The implementation of all the functions are based on the algorithem in the book of the course.
+ * The only change is the use of generic type instead of int type.
  * 
  * @author: Ofir Sasson and Amit Reuveni
  * @version: 2017
@@ -29,10 +29,10 @@ public class RedBlackTree<T extends Comparable<T>>
     }
     
     /** 
-     * The Function check if the node is nil.
+     * Function for checking if the node is nil.
      *
      * @param: node, The RedBlackNode we must check to see whether it's nil.
-     * @return: Return's true of node is nil and false otherwise.
+     * @return: Returns true if node is nil and false otherwise.
      */
     private boolean isNil(RedBlackNode node)
     {
@@ -40,7 +40,7 @@ public class RedBlackTree<T extends Comparable<T>>
     }
         
     /** 
-     * The Algorithm based on the one in page 234 in the course book.
+     * The Algorithm is based on the one in page 234 in the course book.
      * The function Performs a left Rotate around x.
      *
      * @param: x, The node which the lefRotate is to be performed on.
@@ -48,20 +48,20 @@ public class RedBlackTree<T extends Comparable<T>>
     private void leftRotate(RedBlackNode<T> x)
     {
         RedBlackNode<T> y = x.right;    // Set Y.
-        x.right = y.left;               // Turn y's left subtree int x's right subtre.
+        x.right = y.left;               // Turn y's left subtree into x's right subtree.
 
         if (!isNil(y.left))             // Check for existence of y.left and make pointer changes.
             y.left.parent = x;
             
         y.parent = x.parent;            // Link x's parent to y.            
 
-        if (isNil(x.parent))            // x's parent is null.
+        if (isNil(x.parent))            // x's parent is nil.
             root = y;
 
-        else if (x.parent.left == x)    // x is the left child of it's parent.
+        else if (x.parent.left == x)    // x is the left child of its parent.
             x.parent.left = y;
 
-            else                        // x is the right child of it's parent.
+            else                        // x is the right child of its parent.
                 x.parent.right = y;
 
         y.left = x;                     // Put x on y's left.
@@ -77,32 +77,32 @@ public class RedBlackTree<T extends Comparable<T>>
     private void rightRotate(RedBlackNode<T> x)
     {
         RedBlackNode<T> y = x.left;         // Set Y.
-        x.left = y.right;                   // Turn y's right subtree int x's left subtre.
+        x.left = y.right;                   // Turn y's right subtree into x's left subtree.
 
         if (!isNil(y.right))                // Check for existence of y.right and make pointer changes.
             y.right.parent = x;
             
         y.parent = x.parent;                // Link x's parent to y.         
 
-        if (isNil(x.parent))                // x's parent is null.
+        if (isNil(x.parent))                // x's parent is nil.
             root = y;
 
-        else if (x.parent.right == x)       // x is the right child of it's parent.
+        else if (x.parent.right == x)       // x is the right child of its parent.
             x.parent.right = y;
 
-            else                            // x is the left child of it's parent.
+            else                            // x is the left child of its parent.
                 x.parent.left = y;
 
-        y.right = x;                        // Put x on y's right
+        y.right = x;                        // Put x on y's right.
         x.parent = y;
     }
     
     /**
-     * The Algorithm based on the one in page 217 in the course book.
-     * because RBT is based on binary-search tree, the algorithem is working on RBT too.
+     * The Algorithm is based on the one in page 217 in the course book.
+     * because RBT is based on binary-search tree, the algorithm is viable for our RedBlackTree.
      *
      * @param: x, a RedBlackNode.
-     * @return: returns the current minimum value in the tree.
+     * @return: Returns the current minimum value in the tree.
      */
     public RedBlackNode<T> TreeMinimum(RedBlackNode<T> x)
     {
@@ -114,11 +114,11 @@ public class RedBlackTree<T extends Comparable<T>>
     }
 
     /**
-     * The Algorithm based on the one in page 217 in the course book.
-     * because RBT is based on binary-search tree, the algorithem is working on RBT too.
+     * The Algorithm is based on the one in page 217 in the course book.
+     * because RBT is based on binary-search tree, the algorithem is viable for our RedBlackTree.
      *
      * @param: x, a RedBlackNode.
-     * @return: returns the current maximum value in the tree.
+     * @return: Returns the current maximum value in the tree.
      */
     public RedBlackNode<T> TreeMaximum(RedBlackNode<T> x)
     {
@@ -130,21 +130,21 @@ public class RedBlackTree<T extends Comparable<T>>
     }
 
     /**
-     * The Algorithm based on the one in page 218 in the course book.
-     * because RBT is based on binary-search-tree structure, the algorithem is working on RBT too.
+     * The Algorithm is based on the one in page 218 in the course book.
+     * because RBT is based on binary-search-tree structure, the algorithem is viable for our RedBlackTree.
      *
      * @param: x, a RedBlackNode whose successor we must find.
-     * @return: return's the node the with the next largest key from x.key.
+     * @return: Returns the node that has the next higher key in the Tree after x.
      */
     public RedBlackNode<T> TreeSuccessor(RedBlackNode<T> x)
     {
-        // If x.right is not nil, call treeMinimum(x.right) and return it's value.
+        // If x.right is not nil, call treeMinimum(x.right) and return its value.
         if (!isNil(x.right))
             return TreeMinimum(x.right);
 
         RedBlackNode<T> y = x.parent;
 
-        // While x is it's parent's right child:
+        // While x is its parents right child:
         while (!isNil(y) && x == y.right)
         {
             // Keep moving up in the tree.
@@ -157,14 +157,14 @@ public class RedBlackTree<T extends Comparable<T>>
     }
            
     /**
-     * This is function that overloads the actuall function.
+     * A function that calls the actuall function.
      *
      * @param: the key you want to insert to the tree. 
      */
     public void Insert(T key) 
     {        
-        RedBlackNode<T> z = new RedBlackNode<T>(key);       // Create new node for the tree.       
-        RedBlackNode<T> max = root;                         // Create new node for the maximum in the tree.
+        RedBlackNode<T> z = new RedBlackNode<T>(key);       // Create a new node for the tree.       
+        RedBlackNode<T> max = root;                         // Create a new node for the maximum in the tree.
         
         // If the tree is full (current size = k).
         if (currSize == k)
@@ -176,7 +176,7 @@ public class RedBlackTree<T extends Comparable<T>>
                 if (z.key.compareTo(max.key) < 0)
                 {
                     Remove(max);
-                    Insert(z);
+                    Insert(z);  // Call the actual Insert function.
                 }
 
                 // Else, we don't insert z and end the program.
@@ -187,14 +187,14 @@ public class RedBlackTree<T extends Comparable<T>>
         // If the tree is not full yet, insert the node to the tree.
         else
         {
-            Insert(z);
+            Insert(z);  // Call the actual Insert function.
             currSize++;
         }
     }
     
     /**
-     * The Algorithm based on the one in page 236 in the course book.
-     * The function inserts z into the appropriate position in the RedBlackTree while updating numLeft and numRight values.
+     * The Algorithm is based on the one in page 236 in the course book.
+     * The function inserts the node z into the appropriate position in the RedBlackTree while updating numLeft and numRight values.
      *
      * @param: z, the node to be inserted into the Tree rooted at root.
      */
@@ -242,7 +242,7 @@ public class RedBlackTree<T extends Comparable<T>>
     }
 
     /**
-     * The Algorithm based on the one in page 236 in the course book.
+     * The Algorithm is based on the one in page 236 in the course book.
      * The function fixes up the violation of the RedBlackTree properties that may have been caused during insert(z).
      *
      * @param: z, the node which was inserted and may have caused a violation of the RedBlackTree properties.
@@ -290,7 +290,7 @@ public class RedBlackTree<T extends Comparable<T>>
             {
                 y = z.parent.parent.left;                       // Initialize y to z's cousin.
 
-                // Case 1: if y is red...recolor.
+                // Case 1: if y is red, recolor.
                 if (y.color == RedBlackNode.RED)
                 {
                     z.parent.color = RedBlackNode.BLACK;
@@ -323,7 +323,7 @@ public class RedBlackTree<T extends Comparable<T>>
     }   
     
     /**
-     * The Algorithm based on the one in page 242 in the course book.
+     * The Algorithm is based on the one in page 242 in the course book.
      * The function gets the maximum in the tree from the function insert, and delete the maximum.
      *
      * @param: z, the node we want to delete.
@@ -374,7 +374,7 @@ public class RedBlackTree<T extends Comparable<T>>
     }
 
     /**
-     * The Algorithm based on the one in page 243 in the course book.
+     * The Algorithm is based on the one in page 243 in the course book.
      * The function restores the Red Black properties that may have been violated during the removal of a node in remove(RedBlackNode v).
      *
      * @param: x, the child of the deleted node from remove(RedBlackNode v).
@@ -429,7 +429,7 @@ public class RedBlackTree<T extends Comparable<T>>
                 }
             }
               
-            else                        // If x is it's parent's right child.
+            else       // If x is it's parent's right child.
             {
                 // Set w to x's sibling.
                 w = x.parent.left;
@@ -478,7 +478,7 @@ public class RedBlackTree<T extends Comparable<T>>
     }    
 
     /** 
-     * This is function that overloads the actuall function.
+     * This is a function that calls the actual function.
      */
     public void printkMin()
     {   
@@ -487,10 +487,11 @@ public class RedBlackTree<T extends Comparable<T>>
     }
 
     /** 
-     * The Algorithm based on the one in page 214 in the course book.
-     * The Algorithm Print the tree that contains the smallest k values.
+     * The Algorithm is based on the one in page 214 in the course book.
+     * This function overloads the printkMin() function.
+     * The Algorithm Prints the tree that contains the smallest k values.
      *
-     * @param: x, from where to start the scan.
+     * @param: x, the root of the tree that is to be printed.
      */
     private void printkMin(RedBlackNode<T> x)
     {   
