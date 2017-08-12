@@ -2,9 +2,9 @@ import java.util.Random;
 
 /**
  * This is the main class which contains the the function Online.
- * The data provided by the data in the assignment.
+ * The data is provided in the assignment.
  * 
- * @author: Ofir Sasson and Amit Reuveni
+ * @author: Ofir Sasson and Amit Reuveni.
  * @version: 2017
  */
 public class Main
@@ -40,9 +40,9 @@ public class Main
     }   
    
     /**
-     * The funtion puts random value in an array
+     * The funtion puts random values in an array.
      * 
-     * @param: array, the array we want to fill
+     * @param: array, the array we want to fill.
      */
     public static void fillArray(int [] array)
     {
@@ -57,7 +57,7 @@ public class Main
     }
       
     /**
-     * The funtion get an array and a number k and print the smallest k numbers in the array sorted.
+     * The funtion gets an array and a number k and prints the smallest k numbers in the array, sorted.
      * 
      * @param: array, filled with numbers.
      * @param: k, number.
